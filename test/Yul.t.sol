@@ -4,11 +4,17 @@ pragma solidity ^0.8.13;
 import "../lib/forge-std/src/Test.sol";
 
 contract ContinuousFundraisingTest is Test {
+
+    /**
+     * Demonstrate that tests don't work as expected with Yul
+     * This test should fail, and does fail when run with via-ir=false.
+     * But it succeeds when compiled with via-ir=true.
+     */
     function testYul() public {
         uint256 time = block.timestamp;
         assertTrue(time == 1, "time is not 1 at the beginning");
         console.log("stored time before: ", time);
-        // Problem 1: this warp changes the contents of the "time" variable
+        // Problem 1: this warp changes the contents of the "time" variable, even though it shouldn't
         vm.warp(2 hours);
         console.log("stored time after: ", time);
 
